@@ -1,5 +1,6 @@
 import { useState } from "react"
 import Sidebar from "./components/sidebar"
+import Dashboard from "./components/dashboard"
 
 function App() {
   const [activeItem, setActiveItem] = useState('dashboard')
@@ -12,14 +13,11 @@ function App() {
         isOpen={sidebarOpen}
         onToggle={() => setSidebarOpen(!sidebarOpen)}
         activeItem={activeItem}
-        onItemSelect={setActiveItem} 
+        onItemSelect={setActiveItem}
       />
 
-      <div className='flex-1 flex flex-col overflow-hidden'>
-        <header className='bg-white shadow-sm border-b border-gray-200 px-6 py-4'>
+      <Dashboard />
 
-        </header>
-      </div>
     </div>
   )
 }
