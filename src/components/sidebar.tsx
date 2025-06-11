@@ -1,18 +1,20 @@
+import { NavLink, useLocation } from 'react-router'
 import type { ISidebar } from '../interface/sidebar'
 import { Bars3Icon, TvIcon, TicketIcon, UserGroupIcon, ChartBarIcon, PencilSquareIcon, ClipboardDocumentListIcon, Cog6ToothIcon } from "@heroicons/react/24/outline"
 
 
 
-function Sidebar({ isOpen, onToggle, activeItem, onItemSelect }: ISidebar ) {
+function Sidebar({ isOpen, onToggle }: ISidebar) {
+    const location = useLocation()
 
     const menuItems = [
-        { id: 'dashboard', label: 'Dashboard', icon: TvIcon },
-        { id: 'tickets', label: 'Tickets', icon: TicketIcon, badge: '5' },
-        { id: 'clients', label: 'Clientes', icon: UserGroupIcon },
-        { id: 'stats', label: 'Estatísticas', icon: ChartBarIcon },
-        { id: 'documentation', label: 'Documentação', icon: PencilSquareIcon },
-        { id: 'reports', label: 'Relatórios', icon: ClipboardDocumentListIcon },
-        { id: 'configuration', label: 'Configuração', icon: Cog6ToothIcon },
+        { id: 'dashboard', label: 'Dashboard', icon: TvIcon, path: '/dashboard' },
+        { id: 'tickets', label: 'Tickets', icon: TicketIcon, badge: '5', path: '/tickets' },
+        { id: 'clients', label: 'Clientes', icon: UserGroupIcon, path: '/clients' },
+        { id: 'stats', label: 'Estatísticas', icon: ChartBarIcon, path: '/stats' },
+        { id: 'documentation', label: 'Documentação', icon: PencilSquareIcon, path: '/documentation' },
+        { id: 'reports', label: 'Relatórios', icon: ClipboardDocumentListIcon, path: '/reports' },
+        { id: 'configuration', label: 'Configuração', icon: Cog6ToothIcon, path: '/configuration' },
     ]
 
     return (
@@ -25,7 +27,7 @@ function Sidebar({ isOpen, onToggle, activeItem, onItemSelect }: ISidebar ) {
                     <p className='text-sm text-gray-500'>Sistema de Suporte</p>
                 </div>
                 <button onClick={onToggle} className='p-1 rounded-lg hover:bg-gray-100 transition-colors'>
-                    <Bars3Icon className='w-7'/>
+                    <Bars3Icon className='w-7' />
                 </button>
             </div>
 
@@ -34,34 +36,38 @@ function Sidebar({ isOpen, onToggle, activeItem, onItemSelect }: ISidebar ) {
                 <ul className='space-y-2 px-3'>
                     {menuItems.map((item) => {
                         const IconComponent = item.icon
-                        const isActive = activeItem === item.id
+                        const isActive = location.pathname === item.id
 
                         return (
                             <li key={item.id}>
-                                <button 
-                                onClick={() => onItemSelect(item.id)}
-                                className={`w-full flex items-center px-3 py-2.5 rounded-lg transition-all duration-200 group ${
-                                    isActive
-                                        ? 'bg-blue-600 text-white shadow-md'
-                                        : 'text-gray-700 hover:bg-gray-100 hover:text-blue-600'
-                                }`}
+                                <NavLink
+                                    to={item.path}
+                                    className={({ isActive }) =>
+                                        `w-full flex items-center px-3 py-2.5 rounded-lg transition-all duration-200 group ${isActive
+                                            ? 'bg-blue-600 text-white shadow-md'
+                                            : 'text-gray-700 hover:bg-gray-100 hover:text-blue-600'
+                                        }`
+                                    }
                                 >
-                                    <IconComponent className='w-7'/>
-                                    {isOpen && (
+                                    {({ isActive }) => (
                                         <>
-                                            <span className='ml-3 font-medium'>{item.label}</span>
-                                            {item.badge && (
-                                                <span className={`ml-4 px-2 py-1 text-xs rounded-full ${
-                                                    isActive
-                                                        ? 'bg-white text-blue-600'
-                                                        : 'bg-red-500 text-white'
-                                                }`}>
-                                                    {item.badge}
-                                                </span>
+                                            <IconComponent className='w-7' />
+                                            {isOpen && (
+                                                <>
+                                                    <span className='ml-3 font-medium'>{item.label}</span>
+                                                    {item.badge && (
+                                                        <span className={`ml-4 px-2 py-1 text-xs rounded-full ${isActive
+                                                            ? 'bg-white text-blue-600'
+                                                            : 'bg-red-500 text-white'
+                                                            }`}>
+                                                            {item.badge}
+                                                        </span>
+                                                    )}
+                                                </>
                                             )}
                                         </>
                                     )}
-                                </button>
+                                </NavLink>
                             </li>
                         )
                     })}

@@ -1,4 +1,6 @@
 import { useState } from "react"
+import ReactDOM from 'react-dom/client'
+import { BrowserRouter as Router, Routes, Route, Navigate} from 'react-router'
 import Sidebar from "./components/sidebar"
 import Dashboard from "./components/dashboard"
 import Footer from "./components/footer"
@@ -9,6 +11,7 @@ function App() {
   const [sidebarOpen, setSidebarOpen] = useState(true)
 
   return (
+    <Router>
     <div className='flex h-screen bg-gray-100'>
 
       <Sidebar
@@ -18,12 +21,19 @@ function App() {
         onItemSelect={setActiveItem}
       />
 
-      {/* <Dashboard /> */}
-
-      <MenuTickets />
+      <div className='flex-1 flex flex-col'>
+        <main className='flex-1 overflow-auto'>
+          <Routes>
+            <Route path='/' element={<Navigate to="/dashboard" replace />} />
+            <Route path='/dashboard' element={<Dashboard />} />
+            <Route path='/tickets' element={<MenuTickets />} />
+          </Routes>
+        </main>
+      </div>
 
       <Footer />
     </div>
+    </Router>
   )
 }
 
