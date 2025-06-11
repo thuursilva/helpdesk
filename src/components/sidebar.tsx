@@ -7,12 +7,12 @@ function Sidebar({ isOpen, onToggle, activeItem, onItemSelect }: ISidebar ) {
 
     const menuItems = [
         { id: 'dashboard', label: 'Dashboard', icon: TvIcon },
-        { id: 'tickets', label: 'Tickets', icon: TicketIcon, badge: '7' },
+        { id: 'tickets', label: 'Tickets', icon: TicketIcon, badge: '5' },
         { id: 'clients', label: 'Clientes', icon: UserGroupIcon },
-        {id: 'stats', label: 'Estatísticas', icon: ChartBarIcon },
-        {id: 'documentation', label: 'Documentação', icon: PencilSquareIcon },
-        {id: 'reports', label: 'Relatórios', icon: ClipboardDocumentListIcon },
-        {id: 'configuration', label: 'Configuração', icon: Cog6ToothIcon },
+        { id: 'stats', label: 'Estatísticas', icon: ChartBarIcon },
+        { id: 'documentation', label: 'Documentação', icon: PencilSquareIcon },
+        { id: 'reports', label: 'Relatórios', icon: ClipboardDocumentListIcon },
+        { id: 'configuration', label: 'Configuração', icon: Cog6ToothIcon },
     ]
 
     return (
@@ -67,19 +67,6 @@ function Sidebar({ isOpen, onToggle, activeItem, onItemSelect }: ISidebar ) {
                     })}
                 </ul>
             </nav>
-
-            {/* Sidebar footer*/}
-                <div className='absolute bottom-0 left-0 right-0 p-4 border-t border-gray-200 bg-white'>
-                    <div className='flex items-center'>
-                        <div className='w-8 h-8 bg-blue-600 rounded-full flex items-center justify-center'>
-                            <span className='text-white text-sm font-bold'>AS</span>
-                        </div>
-                        <div className='ml-3'>
-                            <p className='text-sm font-medium text-gray-700'>Armando Silva</p>
-                            <p className='text-xs text-gray-500'>Administrador</p>
-                        </div>
-                    </div>
-                </div>
 
         </div>
     )

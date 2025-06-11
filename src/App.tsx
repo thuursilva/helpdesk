@@ -1,6 +1,8 @@
 import { useState } from "react"
 import Sidebar from "./components/sidebar"
 import Dashboard from "./components/dashboard"
+import Footer from "./components/footer"
+import MenuTickets from "./components/menuTickets"
 
 function App() {
   const [activeItem, setActiveItem] = useState('dashboard')
@@ -16,8 +18,11 @@ function App() {
         onItemSelect={setActiveItem}
       />
 
-      <Dashboard />
+      {/* <Dashboard /> */}
 
+      <MenuTickets />
+
+      <Footer />
     </div>
   )
 }
